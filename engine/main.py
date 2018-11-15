@@ -1,8 +1,8 @@
-import config as con
 
-def main():
-    print("Hello World!")
-    print(con.path)
+
+def main(Const):
+    print(Const)
+###  
     
   
 if __name__== "__main__":

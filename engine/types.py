@@ -1,6 +1,5 @@
 import sys
 from ruamel.yaml import YAML
-import ../k-smart.conf
 
 class Types(object):
     def __init__(self):
