@@ -1,17 +1,26 @@
 import sys
-from ruamel.yaml import YAML
+import pickle
+
+dic=dict()
 
 class Types(object):
+    yaml_tag=u'!Types'
     def __init__(self):
         self.name = "None"
         self.maxValue = 255
-        isRec = "true"
         self.desc = "Some Device Type"
-    def to_file(self):
-        yaml = YAML()
-        yaml.register_class(Types)
-        yaml.dump(self, sys.stdout)
+        self.isRec="false"#Is Receiver or Sender
+    
+    
+
+def Load():
+    dic = pickle.load( open( "types.p", "rb" ) )
+    
+###
+def Save():
+    pickle.dump( dic, open( "types.p", "wb" ) )
+###
 
 
-temp = Types()
-temp.to_file()
+
+
