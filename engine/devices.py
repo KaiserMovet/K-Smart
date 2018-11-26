@@ -1,52 +1,63 @@
-import sys
-import pickle
-import types
-dic=dict()
+
+
+
+
 
 class Device(object):
-    def __init__(self):
-        self.name = "None"
-        self.pos=(1,1)
-        self.desc = "Some Device"
-        self.typeName="None"
+    def __init__(self,data,name,pos,desc,typeName,refreshTime):
+        self.data=data
+        self.name = name
+        self.pos=pos
+        self.desc = desc
+        self.typeName=typeName
         self.value=0
         self.trueValue=-1
-        self.type=types.dic[self.typeName]
-        self.refresh=60 #sekundy
-    def refresh():
-        if self.type.isRec
-            if self.value!=self.trueValue
+        self.type=data.dicTyp[typeName]
+        self.refreshTime=refreshTime #sekundy
+    ###
+    def toStr(self):
+        string = "Device = {{"
+        string += "\n\tname = "+self.name
+        string += "\n\tpos = "+ str(self.pos)
+        string += "\n\tdesc = "+self.desc
+        string += "\n\ttypeName = "+self.typeName
+        string += "\n\tvalue = "+str(self.value)
+        string += "\n\ttrueValue = "+ str(self.trueValue)
+        string += "\n\trefreshTime = "+str(self.refreshTime)
+        string += "\n}}"
+        return string
+
+    ###    
+    def GetDevValue(self):
+        #TODO
+        pass
+    ###
+    def SetDevValue(self):
+        #TODO
+        pass
+    ###
+
+    def refresh(self):
+        if self.type.isRec:
+            if self.value!=self.trueValue:
                 self.trueValue=self.value
-                SetDevValue()
+                self.SetDevValue()
                 return
             pass
         pass
-        GetDevValue()
+        self.GetDevValue()
     
-    def GetDevValue():
-        #TODO
-        pass
-    ###
-    def SetDevValue():
-        #TODO
-        pass
-    ###
 
 
-def Load():
-    dic = pickle.load( open( "devices.p", "rb" ) )
 
-###
-def Save(lista):
-    pickle.dump( dic, open( "devices.p", "wb" ) )
-###
 
-def GetValue(name):
-    value=dic[name].value
+
+def GetValue(name,data):
+    value=data.dicDev[name].value
     return value
 ###
 
-def SendValue(name,val):
-    if(dic[name].type.isRec):
-        dic[name].value=val
+def SendValue(name,val,data):
+    if(data.dicDev[name].type.isRec):
+        data.dicDev[name].value=val
     return

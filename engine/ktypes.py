@@ -1,7 +1,6 @@
 
 
 
-
 class Types(object):
     def __init__(self,name,desc,isRec):
         self.name = name
@@ -17,6 +16,3 @@ class Types(object):
         return string
     ###
 pass
-
-
-
