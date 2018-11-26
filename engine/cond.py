@@ -1,7 +1,7 @@
 import sys
 import pickle
 import devices
-
+import debug
 
 def equal(a,b):
     return (a==b)
@@ -25,6 +25,7 @@ class SmallCond(object):
         self.dev2=dev2
         self.comp=comp
         self.compDict={"equal":equal,"less":less,"more":more,"equalles":equalLess,"equalMore":equalMore}
+        debug.Log('SmallCond Added {} {} {} {} {}'.format(dev1,value1,dev2,value2,comp))
     
     def Refresh(self):
         if self.dev1!="Value":
@@ -49,6 +50,7 @@ class Effect(object):
         self.trueValue=trueValue #-1 - nie wysyla wartosci (nic nie robi podczas refreshu)
         self.falseValue=falseValue
         self.data=data
+        
     ###
     def Refresh(self,con):
         if con:
@@ -82,12 +84,15 @@ class Cond(object):
         self.small=list() #lista malych warunkow
         self.effect=list() #lista efektow
         self.bool=False
+        debug.Log('Cond: Object Added {} {} {}'.format(name,refresh,desc))
     ###
     def addEffec(self,data,deviceName,trueValue,falseValue):
         self.effect.append(Effect(data,deviceName,trueValue,falseValue))
+        debug.Log('{}: Effect Added {} {} {}'.format(self.name,deviceName,trueValue,falseValue))
     ###
     def addCond(self,data,dev1,value1,dev2,value2,comp):
         self.small.append(SmallCond(data,dev1,value1,dev2,value2,comp))
+        debug.Log('{}: Cond Added {} {} {} {} {}'.format(self.name,dev1,value1,dev2,value2,comp))
     ###
     def Refresh(self):
         tempBool=0 #Liczy true w small.bool

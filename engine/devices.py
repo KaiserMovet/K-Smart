@@ -1,4 +1,4 @@
-
+import debug
 
 
 
@@ -14,6 +14,7 @@ class Device(object):
         self.trueValue=-1
         self.type=data.dicTyp[typeName]
         self.refreshTime=refreshTime #sekundy
+        debug.Log('Device: Object Added {} {} {} {} {}'.format(name,pos,desc,typeName,refreshTime))
     ###
     def toStr(self):
         string = "Device = {{"
@@ -30,10 +31,12 @@ class Device(object):
     ###    
     def GetDevValue(self):
         #TODO
+        debug.Log('{}: GetDevValue {} '.format(self.name,self.value))
         pass
     ###
     def SetDevValue(self):
         #TODO
+        debug.Log('{}: SetDevValue {} '.format(self.name,self.value))
         pass
     ###
 

@@ -3,6 +3,7 @@ import ktypes
 import devices
 #import cond
 import os.path
+import debug
 class Data:
 
     def __init__(self):
@@ -25,14 +26,16 @@ class Data:
         for i in self.dicDev.values():
             print(i.toStr())
     ###
+    ###Get Value from device
     def GetValue(self,name):
         value=self.dicDev[name].value
         return value
     ###
-
+    ###Send Value to device
     def SendValue(self,name,val):
         if(self.dicDev[name].type.isRec):
             self.dicDev[name].value=val
+            debug.Log('Data: SendValue {} {} '.format(name,val))
         return
 
 ###
