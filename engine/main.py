@@ -25,6 +25,15 @@ class Data:
         for i in self.dicDev.values():
             print(i.toStr())
     ###
+    def GetValue(self,name):
+        value=self.dicDev[name].value
+        return value
+    ###
+
+    def SendValue(self,name,val):
+        if(self.dicDev[name].type.isRec):
+            self.dicDev[name].value=val
+        return
 
 ###
 

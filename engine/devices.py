@@ -52,12 +52,3 @@ class Device(object):
 
 
 
-def GetValue(name,data):
-    value=data.dicDev[name].value
-    return value
-###
-
-def SendValue(name,val,data):
-    if(data.dicDev[name].type.isRec):
-        data.dicDev[name].value=val
-    return
