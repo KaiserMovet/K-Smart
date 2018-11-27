@@ -14,7 +14,7 @@ class Device(object):
         self.trueValue=-1
         self.type=data.dicTyp[typeName]
         self.refreshTime=refreshTime #sekundy
-        debug.Log('Device: Object Added {} {} {} {} {}'.format(name,pos,desc,typeName,refreshTime))
+        debug.Log('Device: Object Added {}, {}, {}, {}, {}'.format(name,pos,desc,typeName,refreshTime))
     ###
     def toStr(self):
         string = "Device = {{"

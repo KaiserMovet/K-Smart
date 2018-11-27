@@ -6,7 +6,7 @@ class Types(object):
         self.name = name
         self.desc = desc
         self.isRec=isRec #Is Receiver or Sender
-        debug.Log('Types: Object Added {} {} {}'.format(self.name,desc,isRec))
+        debug.Log('Types: Object Added {}, {}, {},'.format(self.name,desc,isRec))
     ###
     def toStr(self):
         string = "Type = {{"

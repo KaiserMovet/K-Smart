@@ -1,4 +1,6 @@
 import pickle
+import os
+import time
 import ktypes
 import devices
 #import cond
@@ -25,6 +27,17 @@ class Data:
     def printDev(self):
         for i in self.dicDev.values():
             print(i.toStr())
+    ###
+    def TypToStr(self):
+        string=""
+        for i in self.dicTyp.values():
+            string+=(i.toStr())
+        return string
+    def DevToStr(self):
+        string=""
+        for i in self.dicDev.values():
+            string+=(i.toStr())
+        return string
     ###
     ###Get Value from device
     def GetValue(self,name):
@@ -60,11 +73,12 @@ def main(Const):
     data=Init()
     Testy(data)
     print(Const)
+    time.sleep(100)
     Kill(data)
     return
 ###  
     
-  
+print("s")
 if __name__ == "__main__":
     # execute only if run as a script
     main("aaa")

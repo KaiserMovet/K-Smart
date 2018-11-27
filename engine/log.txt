@@ -1,0 +1,10 @@
+[2018-11-26 22:04:56:786469]	Types: Object Added Swiatlo, zarowka led, 1,;
+[2018-11-26 22:04:56:786988]	Device: Object Added Swiatlo 1, (1, 1), Swiatlo w duzym pokoju, Swiatlo, 60;
+[2018-11-26 22:58:41:397376]	Types: Object Added Swiatlo, zarowka led, 1,;
+[2018-11-26 22:58:41:397884]	Device: Object Added Swiatlo 1, (1, 1), Swiatlo w duzym pokoju, Swiatlo, 60;
+[2018-11-26 23:42:16:640037]	Types: Object Added Swiatlo, zarowka led, 1,;
+[2018-11-26 23:42:16:640376]	Device: Object Added Swiatlo 1, (1, 1), Swiatlo w duzym pokoju, Swiatlo, 60;
+[2018-11-26 23:43:39:419340]	Types: Object Added Swiatlo, zarowka led, 1,;
+[2018-11-26 23:43:39:419936]	Device: Object Added Swiatlo 1, (1, 1), Swiatlo w duzym pokoju, Swiatlo, 60;
+[2018-11-26 23:43:53:185041]	Types: Object Added Swiatlo, zarowka led, 1,;
+[2018-11-26 23:43:53:186393]	Device: Object Added Swiatlo 1, (1, 1), Swiatlo w duzym pokoju, Swiatlo, 60;

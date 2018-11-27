@@ -25,7 +25,6 @@ class SmallCond(object):
         self.dev2=dev2
         self.comp=comp
         self.compDict={"equal":equal,"less":less,"more":more,"equalles":equalLess,"equalMore":equalMore}
-        debug.Log('SmallCond Added {} {} {} {} {}'.format(dev1,value1,dev2,value2,comp))
     
     def Refresh(self):
         if self.dev1!="Value":
@@ -84,15 +83,15 @@ class Cond(object):
         self.small=list() #lista malych warunkow
         self.effect=list() #lista efektow
         self.bool=False
-        debug.Log('Cond: Object Added {} {} {}'.format(name,refresh,desc))
+        debug.Log('Cond: Object Added {}, {}, {}'.format(name,refresh,desc))
     ###
     def addEffec(self,data,deviceName,trueValue,falseValue):
         self.effect.append(Effect(data,deviceName,trueValue,falseValue))
-        debug.Log('{}: Effect Added {} {} {}'.format(self.name,deviceName,trueValue,falseValue))
+        debug.Log('{}: Effect Added {}, {}, {}'.format(self.name,deviceName,trueValue,falseValue))
     ###
     def addCond(self,data,dev1,value1,dev2,value2,comp):
         self.small.append(SmallCond(data,dev1,value1,dev2,value2,comp))
-        debug.Log('{}: Cond Added {} {} {} {} {}'.format(self.name,dev1,value1,dev2,value2,comp))
+        debug.Log('{}: Cond Added {}, {}, {}, {}, {}'.format(self.name,dev1,value1,dev2,value2,comp))
     ###
     def Refresh(self):
         tempBool=0 #Liczy true w small.bool
@@ -103,8 +102,12 @@ class Cond(object):
             ###
         ###
         if tempBool==len(self.small):
+            if self.bool==False:
+                debug.Log('{}: bool To True'.format(self.name))
             self.bool=True
         else:
+            if self.bool==False:
+                debug.Log('{}: bool To False'.format(self.name))
             self.bool=False
         ###
         for i in self.effect:
