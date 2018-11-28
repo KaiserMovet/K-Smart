@@ -1,0 +1,41 @@
+{'interval': 15, 'timeCount': 270}
+Device = {{
+	name = Ala
+	pos = (1, 1)
+	desc = Swiatlo
+	typeName = Swiatlo
+	value = 200
+	trueValue = 200
+	refreshTime = 15
+	isRec = 1
+}}
+Device = {{
+	name = Ola
+	pos = (1, 1)
+	desc = Czujnik
+	typeName = Czujnik
+	value = 0
+	trueValue = -1
+	refreshTime = 15
+	isRec = 0
+}}
+Condition = {{
+	name = War1
+	Desc = Warunek ein
+	Refresh = 15
+	Bool = False
+	Malu1 Cond = {{
+		1.Value = 10
+		2.Ola = 0
+		comp = equal
+		Bool = False
+	}}
+
+	Ef1 Effect = {{
+		Device Name = Ala
+		trueValue = 100
+		falseValue = 200
+		CurrentValue = 200
+	}}
+
+}}

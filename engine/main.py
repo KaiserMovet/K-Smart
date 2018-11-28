@@ -4,39 +4,61 @@ import time
 import os.path
 import debug
 import data as DATA
-import multiprocessing
+import threading
 import serv
+
+isActive=True
+isExit=False
+
+def Refresh(data):
+    data.timeCount=0
+    while not isExit:
+        
+        if isActive:
+            data.Refresh()
+            data.dicConst["timeCount"]+=data.dicConst["interval"]
+            with open("data.txt","w") as file:
+                file.write(data.DataToStr())
+            if data.dicConst["timeCount"]>=3600:
+                data.dicConst["timeCount"]=0
+
+        time.sleep(data.dicConst["interval"])
+        ###
+    ###
+###
+
 
 def Init():
     #if os.path.isfile("save.p"):
     #    data=pickle.load( open( "save.p", "rb" ) )
     #else:
     data=DATA.Data()
-    ###
+
+    isActive=True
+    isExit=False
+    #start RefreshLoop
+    refresh_handler=threading.Thread(target=Refresh,args=(data,))
+    refresh_handler.daemon=True
+    refresh_handler.start()
     #start server
-    server_handler=multiprocessing.Process(target=serv.start,args=(data,2131))
+    server_handler=threading.Thread(target=serv.start,args=(data,2120,))
     server_handler.daemon=True
     server_handler.start()
-    return data, server_handler
+    return data, refresh_handler,server_handler
 
-def Kill(data,server_handler):
+def Kill(data,refresh_handler,server_handler):
     #Save data to file
+    refresh_handler.join()
     pickle.dump( data, open( "save.p", "wb" ) )
     
-def Testy(data):
-    data.addType("Swiatlo","zarowka led",1)
-    data.addDev(data,"Swiatlo 1",(1,1),"Swiatlo w duzym pokoju","Swiatlo",60)
-    data.printTyp()
-    data.printDev()
 ###
 def main(Const):
-    data,server_handler=Init()
+    data,refresh_handler,server_handler=Init()
     
-    Testy(data)
 
-    server_handler=threading.Thread(target=serv.start,args=(data,2131))
+    
 
-    Kill(data,server_handler)
+    Kill(data,refresh_handler,server_handler)
     return
 ###  
     

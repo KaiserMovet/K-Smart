@@ -13,7 +13,7 @@ def equalLess(a,b):
     return (a<=b)
 def equalMore(a,b):
     return (a>=b)
-
+compDict={"equal":equal,"less":less,"more":more,"equalles":equalLess,"equalMore":equalMore}
 
 class SmallCond(object):
     def __init__(self,data,dev1,value1,dev2,value2,comp):
@@ -24,22 +24,22 @@ class SmallCond(object):
         self.dev1=dev1#Const value from value1/2 variable for "Value" else find Devices with name dev1/2
         self.dev2=dev2
         self.comp=comp
-        self.compDict={"equal":equal,"less":less,"more":more,"equalles":equalLess,"equalMore":equalMore}
     
     def Refresh(self):
+        print("Refresh")
         if self.dev1!="Value":
-            self.value1=self.data.GetValue(self.dev1,self.data)
+            self.value1=self.data.GetValue(self.dev1)
         if self.dev2!="Value":
-            self.value2=self.data.GetValue(self.dev2,self.data)
-        self.bool=self.compDict[self.comp](self.value1,self.value2)
+            self.value2=self.data.GetValue(self.dev2)
+        self.bool=compDict[self.comp](self.value1,self.value2)
     
-    def ToStr(self):
-        string = "\tCond = {{"
+    def toStr(self):
+        string = "Cond = {{"
         string += "\n\t\t1."+str(self.dev1)+" = "+str(self.value1)
-        string += "\n\t\t1."+str(self.dev2)+" = "+str(self.value2)
+        string += "\n\t\t2."+str(self.dev2)+" = "+str(self.value2)
         string += "\n\t\tcomp = "+self.comp
         string += "\n\t\tBool = "+ str(self.bool)
-        string += "\n\t}}"
+        string += "\n\t}}\n"
         return string
     ###
 ###
@@ -57,18 +57,18 @@ class Effect(object):
                 self.data.SendValue(self.deviceName,self.trueValue)
             ###
         else:
-            if self.trueValue!=-1:
-                self.data.SendValue(self.deviceName,self.trueValue)
+            if self.falseValue!=-1:
+                self.data.SendValue(self.deviceName,self.falseValue)
             ###
         ###
     ###
-    def ToStr(self):
-        string = "\tEffect = {{"
+    def toStr(self):
+        string = "Effect = {{"
         string += "\n\t\tDevice Name = "+self.deviceName
         string += "\n\t\ttrueValue = "+ str(self.trueValue)
         string += "\n\t\tfalseValue = "+ str(self.falseValue)
-        string += "\n\t\tCurrentValue = "+ str(self.data.GetValue(self.deviceName,self.data))
-        string += "\n\t}}"
+        string += "\n\t\tCurrentValue = "+ str(self.data.GetValue(self.deviceName))
+        string += "\n\t}}\n"
         return string
     ###
 ###
@@ -80,22 +80,24 @@ class Cond(object):
         self.name = name
         self.refresh=refresh #sekundy
         self.desc = desc
-        self.small=list() #lista malych warunkow
-        self.effect=list() #lista efektow
+        self.small=dict() #slownik malych warunkow
+        self.effect=dict() #slownik efektow
         self.bool=False
         debug.Log('Cond: Object Added {}, {}, {}'.format(name,refresh,desc))
     ###
-    def addEffec(self,data,deviceName,trueValue,falseValue):
-        self.effect.append(Effect(data,deviceName,trueValue,falseValue))
-        debug.Log('{}: Effect Added {}, {}, {}'.format(self.name,deviceName,trueValue,falseValue))
+    def addEffec(self,data,name,deviceName,trueValue,falseValue):
+        self.effect[name]=(Effect(data,deviceName,trueValue,falseValue))
+        debug.Log('{}: Effect Added {}, {}, {}, {}'.format(self.name,name,deviceName,trueValue,falseValue))
     ###
-    def addCond(self,data,dev1,value1,dev2,value2,comp):
-        self.small.append(SmallCond(data,dev1,value1,dev2,value2,comp))
-        debug.Log('{}: Cond Added {}, {}, {}, {}, {}'.format(self.name,dev1,value1,dev2,value2,comp))
+    def addSmall(self,data,name,dev1,dev2,comp,value1=0,value2=0):
+        self.small[name]=(SmallCond(data,dev1,value1,dev2,value2,comp))
+        debug.Log('{}: Cond Added {}, {}, {}, {}, {}, {}'.format(self.name,name,dev1,value1,dev2,value2,comp))
     ###
-    def Refresh(self):
+    def Refresh(self,count,interval):
+        if count%(self.refresh//interval)!=0:
+            return
         tempBool=0 #Liczy true w small.bool
-        for i in self.small:
+        for i in self.small.values():
             i.Refresh()
             if i.bool:
                 tempBool+=1
@@ -110,19 +112,24 @@ class Cond(object):
                 debug.Log('{}: bool To False'.format(self.name))
             self.bool=False
         ###
-        for i in self.effect:
+        for i in self.effect.values():
             i.Refresh(self.bool)
         ###
-    def ToStr(self):
+    def toStr(self):
         string = "Condition = {{"
         string += "\n\tname = "+self.name
         string += "\n\tDesc = "+ self.desc
         string += "\n\tRefresh = "+str(self.refresh)
         string += "\n\tBool = "+str(self.bool)
-        for i in self.small:
-            string+=i.ToStr()
+        for i,j in self.small.items():
+            string+="\n\t"+i+" "   
+            string+=j.toStr()
         ###
-        string += "\n}}"
+        for i,j in self.effect.items():
+            string+="\n\t"+i+" "   
+            string+=j.toStr()
+        ###
+        string += "\n}}\n"
         return string
     ###
 ###

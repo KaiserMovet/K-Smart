@@ -1,5 +1,5 @@
 import debug
-
+import threading
 
 class Types(object):
     def __init__(self,name,desc,isRec):
@@ -17,3 +17,20 @@ class Types(object):
         return string
     ###
 pass
+
+def me(a):
+    a.name="www"
+
+def ma(a):
+    a.name="gggg"
+
+def main():
+    a=Types("a","a",0)
+    ma(a)
+    print(a.name)
+    w=threading.Thread(target=me,args=(a,))
+    w.start()
+    w.join()
+    print(a.name)
+
+main()
