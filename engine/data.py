@@ -1,7 +1,12 @@
 import debug
 import cond
 import devices
+from time import sleep
 class Data:
+
+    def Wait(self):
+        while self.isUpdating:
+            sleep(1)
 
     def Const(self):
         self.dicConst["interval"]=15
@@ -11,31 +16,53 @@ class Data:
     #   self.dicTyp=dict()
         self.dicDev=dict()
         self.dicCon=dict()
-
+        self.isUpdating=False#when Refresh is active
         self.dicConst=dict()
         self.Const()
         pass
     ###
-    #def addType(self,name,desc,isRec):
-    #    self.dicTyp[name]=ktypes.Types(name,desc,isRec)
-        
+    def toDict(self):
+        wynik=dict()
+        wynik["dicConst"]=self.dicConst
+        wynik["dicDev"]=dict()
+        wynik["dicCon"]=dict()
+        for i in self.dicDev.keys():
+            wynik["dicDev"][i]=self.dicDev[i].__dict__
+        for i in self.dicCon.keys():
+            wynik["dicCon"][i]=self.dicCon[i].__dict__
+            a=dict()
+            for j in self.dicCon[i].small.keys():
+                a[j]=self.dicCon[i].small[j].__dict__
+            b=dict()
+            for j in self.dicCon[i].effect.keys():
+                b[j]=self.dicCon[i].effect[j]
+            wynik["dicCon"][i]=self.dicCon[i].__dict__
+            wynik["dicCon"][i]["small"]=a
+            wynik["dicCon"][i]["effect"]=b
+        return wynik
     ###
     def addDev(self,name,pos,desc,typeName,refreshTime,isRec):
+        self.Wait()
         self.dicDev[name]=devices.Device(name,pos,desc,typeName,refreshTime,isRec)
     ###
     def addValue(self,name,pos,desc,value):
+        self.Wait()
         self.dicDev[name]=devices.Value(name,pos,desc,value)
     ###
     def changePos(self,name,pos):
+        self.Wait()
         self.dicDev[name].pos=pos
     ###
     def addCond(self,name,refresh,desc):
+        self.Wait()
         self.dicCon[name]=cond.Cond(name,refresh,desc)
     ###
     def addSmall(self,conName,smallName,dev1,dev2,comp,value1=0,value2=0):
+        self.Wait()
         self.dicCon[conName].addSmall(self,smallName,dev1,dev2,comp,value1,value2)
     ###
     def addEffect(self,conName,effectName,deviceName,trueValue,falseValue):
+        self.Wait()
         self.dicCon[conName].addEffec(self,effectName,deviceName,trueValue,falseValue)
     ###
    

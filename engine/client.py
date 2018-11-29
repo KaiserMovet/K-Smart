@@ -7,7 +7,7 @@ def test(count):
 
     # connect the client
     # client.connect((target, port))
-    client.connect(('localhost', 2121))
+    client.connect(('localhost', 2021))
 
     # send some data (in this case a HTTP GET request)
     mess=dict()

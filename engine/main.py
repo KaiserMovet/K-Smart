@@ -14,6 +14,8 @@ isExit=False
 
 def signal_handler(sig, frame):
         print('You pressed Ctrl+C!')
+        print('Program will exit soon')
+        print("Press Ctrl+C again to exit immediately")
         signal.signal(signal.SIGINT, original_sigint)
         global isExit
         isExit=True
@@ -23,8 +25,10 @@ def Refresh(data):
     while not isExit:
         print(isExit)
         if isActive:
+            data.isUpdating=True
             data.Refresh()
             data.dicConst["timeCount"]+=data.dicConst["interval"]
+            data.isUpdating=False
             with open("data.txt","w") as file:
                 file.write(data.DataToStr())
             if data.dicConst["timeCount"]>=3600:
