@@ -23,7 +23,6 @@ def signal_handler(sig, frame):
 def Refresh(data):
     data.timeCount=0
     while not isExit:
-        print(isExit)
         if isActive:
             data.isUpdating=True
             data.Refresh()
@@ -57,7 +56,7 @@ def Init():
     refresh_handler.daemon=True
     refresh_handler.start()
     #start server
-    server_handler=threading.Thread(target=serv.start,args=(data,2021,))
+    server_handler=threading.Thread(target=serv.start,args=(data,2020,))
     server_handler.daemon=True
     server_handler.start()
     return data, refresh_handler,server_handler

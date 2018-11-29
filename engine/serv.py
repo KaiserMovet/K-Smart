@@ -25,7 +25,6 @@ def handle_client_connection(client_socket,data,address):
     mess=pickle.loads(request)
     if mess == "Refresh":
         a=data.toDict()
-        print(a)
         client_socket.send(pickle.dumps(a))
         
     else:

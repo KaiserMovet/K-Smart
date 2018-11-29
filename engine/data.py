@@ -23,20 +23,24 @@ class Data:
     ###
     def toDict(self):
         wynik=dict()
-        wynik["dicConst"]=self.dicConst
+        wynik["dicConst"]=self.dicConst.copy()
         wynik["dicDev"]=dict()
         wynik["dicCon"]=dict()
         for i in self.dicDev.keys():
-            wynik["dicDev"][i]=self.dicDev[i].__dict__
+            wynik["dicDev"][i]=self.dicDev[i].__dict__.copy()
         for i in self.dicCon.keys():
-            wynik["dicCon"][i]=self.dicCon[i].__dict__
+            wynik["dicCon"][i]=self.dicCon[i].__dict__.copy()
             a=dict()
             for j in self.dicCon[i].small.keys():
-                a[j]=self.dicCon[i].small[j].__dict__
+                a[j]=self.dicCon[i].small[j].__dict__.copy()
+                a[j].pop("data")
+
             b=dict()
             for j in self.dicCon[i].effect.keys():
-                b[j]=self.dicCon[i].effect[j]
-            wynik["dicCon"][i]=self.dicCon[i].__dict__
+                b[j]=self.dicCon[i].effect[j].__dict__.copy()
+                b[j].pop("data")
+            wynik["dicCon"][i]=self.dicCon[i].__dict__.copy()
+
             wynik["dicCon"][i]["small"]=a
             wynik["dicCon"][i]["effect"]=b
         return wynik

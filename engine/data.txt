@@ -1,4 +1,4 @@
-{'interval': 15, 'timeCount': 915}
+{'interval': 15, 'timeCount': 735}
 Device = {{
 	name = Ala
 	pos = (1, 1)

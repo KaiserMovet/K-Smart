@@ -4,10 +4,9 @@ from app.forms import LoginForm
 from app import client
 @app.route('/')
 @app.route('/index')
-def index():
-    user = {'username': 'Miguel'}
+def devices():
     data=client.refresh()
-    return render_template('index.html',title='Home', user=user, data=data)
+    return render_template('index.html',title='Device', data=data)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
