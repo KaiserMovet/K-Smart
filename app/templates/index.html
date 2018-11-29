@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ user.username }}!</h1>
+    {% for i in data.dicDev.keys %}
+    <div><p>{{ i }} says: <b>{{ i }}</b></p></div>
+    {% endfor %}
+{% endblock %}

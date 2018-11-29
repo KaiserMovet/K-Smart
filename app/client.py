@@ -1,6 +1,14 @@
 import socket
 import pickle
-import time
+import app.data
+
+def send(dane):
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect(('localhost', 2021))
+    a=pickle.dumps( dane )
+    client.send(a)
+    response = client.recv(4096)
+    return pickle.loads(response)
 
 def test(count):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -59,18 +67,14 @@ def test(count):
         mess["value2"]=0
         mess["comp"]="equal" 
 
-    a=pickle.dumps( mess )
 
-    client.send(a)
 
 
 
     # receive the response data (4096 is recommended buffer size)
-    response = client.recv(4096)
+    
 
     print(response)
 ###
-
-for i in range(1,7):
-    test(i)
-    time.sleep(5)
+def refresh():
+    return send("Refresh")
