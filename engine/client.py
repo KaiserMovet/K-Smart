@@ -7,14 +7,13 @@ def test(count):
 
     # connect the client
     # client.connect((target, port))
-    client.connect(('localhost', 2120))
+    client.connect(('localhost', 2020))
 
     # send some data (in this case a HTTP GET request)
     mess=dict()
     if count == 1:
         mess["exe"]="addDev"
         mess["name"]="Ala"
-        mess["pos"]=(1,1)
         mess["desc"]="Swiatlo"
         mess["typeName"]="Swiatlo"
         mess["refreshTime"]=15

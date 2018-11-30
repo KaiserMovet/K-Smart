@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Add Small</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {% for i in [form.conName,form.smallName,form.dev1,form.value1,form.dev2,form.value2] %}
+        <p>
+            {{ i.label }}<br>
+            {{ i(size=32) }}<br>
+            {% for error in i.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

@@ -26,7 +26,6 @@ class SmallCond(object):
         self.comp=comp
     
     def Refresh(self):
-        print("Refresh")
         if self.dev1!="Value":
             self.value1=self.data.GetValue(self.dev1)
         if self.dev2!="Value":

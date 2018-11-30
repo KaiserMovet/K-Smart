@@ -4,8 +4,9 @@ import pickle
 import data as DATA
 
 def inter(client_socket,data,mess):
+    print("Otrzymano slownik")
     if mess["exe"]=="addDev":
-        data.addDev(mess["name"],mess["pos"],mess["desc"],mess["typeName"],mess["refreshTime"],mess["isRec"])   
+        data.addDev(mess["name"],mess["desc"],mess["typeName"],mess["refreshTime"],mess["isRec"])   
     if mess["exe"]=="addCon":
         data.addCond(mess["name"],mess["refreshTime"],mess["desc"])   
     if mess["exe"]=="addSmall":
@@ -16,7 +17,7 @@ def inter(client_socket,data,mess):
         data.ChangePos(mess["name"],mess["pos"])
     if mess["exe"]=="addValue":
         data.addValue(mess["name"],mess["pos"],mess["desc"],mess["value"])   
-   
+    
 
 ###
 
@@ -24,10 +25,12 @@ def handle_client_connection(client_socket,data,address):
     request = client_socket.recv(1024)
     mess=pickle.loads(request)
     if mess == "Refresh":
-        client_socket.send(pickle.dumps(data))
+        a=data.toDict()
+        client_socket.send(pickle.dumps(a))
         
     else:
         inter(client_socket,data,mess)
+        client_socket.send(pickle.dumps("Dzieki"))
     client_socket.close()
     print('Closed connection from {}:{}'.format(address[0], address[1]))
 

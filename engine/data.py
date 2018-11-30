@@ -1,7 +1,12 @@
 import debug
 import cond
 import devices
+from time import sleep
 class Data:
+
+    def Wait(self):
+        while self.isUpdating:
+            sleep(1)
 
     def Const(self):
         self.dicConst["interval"]=15
@@ -11,32 +16,60 @@ class Data:
     #   self.dicTyp=dict()
         self.dicDev=dict()
         self.dicCon=dict()
-
+        self.isUpdating=False#when Refresh is active
         self.dicConst=dict()
         self.Const()
         pass
     ###
-    #def addType(self,name,desc,isRec):
-    #    self.dicTyp[name]=ktypes.Types(name,desc,isRec)
-        
+    def toDict(self):
+        wynik=dict()
+        wynik["dicConst"]=self.dicConst.copy()
+        wynik["dicDev"]=dict()
+        wynik["dicCon"]=dict()
+        for i in self.dicDev.keys():
+            wynik["dicDev"][i]=self.dicDev[i].__dict__.copy()
+        for i in self.dicCon.keys():
+            wynik["dicCon"][i]=self.dicCon[i].__dict__.copy()
+            a=dict()
+            for j in self.dicCon[i].small.keys():
+                a[j]=self.dicCon[i].small[j].__dict__.copy()
+                a[j].pop("data")
+
+            b=dict()
+            for j in self.dicCon[i].effect.keys():
+                b[j]=self.dicCon[i].effect[j].__dict__.copy()
+                b[j].pop("data")
+            wynik["dicCon"][i]=self.dicCon[i].__dict__.copy()
+
+            wynik["dicCon"][i]["small"]=a
+            wynik["dicCon"][i]["effect"]=b
+        return wynik
     ###
-    def addDev(self,name,pos,desc,typeName,refreshTime,isRec):
+    def addDev(self,name,desc,typeName,refreshTime,isRec,pos=(-1,-1)):
+        self.Wait()
         self.dicDev[name]=devices.Device(name,pos,desc,typeName,refreshTime,isRec)
     ###
     def addValue(self,name,pos,desc,value):
+        self.Wait()
         self.dicDev[name]=devices.Value(name,pos,desc,value)
     ###
     def changePos(self,name,pos):
+        self.Wait()
         self.dicDev[name].pos=pos
     ###
     def addCond(self,name,refresh,desc):
+        self.Wait()
         self.dicCon[name]=cond.Cond(name,refresh,desc)
     ###
     def addSmall(self,conName,smallName,dev1,dev2,comp,value1=0,value2=0):
-        self.dicCon[conName].addSmall(self,smallName,dev1,dev2,comp,value1,value2)
+        if conName in self.dicCon:
+            self.Wait()
+            self.dicCon[conName].addSmall(self,smallName,dev1,dev2,comp,value1,value2)
     ###
     def addEffect(self,conName,effectName,deviceName,trueValue,falseValue):
-        self.dicCon[conName].addEffec(self,effectName,deviceName,trueValue,falseValue)
+        if conName in self.dicCon:
+            self.Wait()
+            self.dicCon[conName].addEffec(self,effectName,deviceName,trueValue,falseValue)
     ###
    
     def printDev(self):
@@ -63,11 +96,15 @@ class Data:
         return string
     ###Get Value from device
     def GetValue(self,name):
+        if name not in self.dicCon:
+            return -1
         value=self.dicDev[name].value
         return value
     ###
     ###Send Value to device
     def SendValue(self,name,val):
+        if name not in self.dicCon:
+            return
         if(self.dicDev[name].isRec):
             self.dicDev[name].value=val
             debug.Log('Data: SendValue {} {} '.format(name,val))
