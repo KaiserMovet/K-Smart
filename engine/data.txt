@@ -1,41 +1,41 @@
-{'interval': 15, 'timeCount': 735}
-Device = {{
-	name = Ala
-	pos = (1, 1)
-	desc = Swiatlo
-	typeName = Swiatlo
-	value = 200
-	trueValue = 200
-	refreshTime = 15
-	isRec = 1
-}}
+{'interval': 15, 'timeCount': 1170}
 Device = {{
 	name = Ola
-	pos = (1, 1)
-	desc = Czujnik
-	typeName = Czujnik
+	pos = (-1, -1)
+	desc = Swiatlo w pokoju
+	typeName = Swiatlo
 	value = 0
 	trueValue = -1
 	refreshTime = 15
-	isRec = 0
+	isRec = False
+}}
+Device = {{
+	name = Czujnik swiatla
+	pos = (-1, -1)
+	desc = Czuje
+	typeName = jebac Globala
+	value = 0
+	trueValue = -1
+	refreshTime = 15
+	isRec = False
 }}
 Condition = {{
-	name = War1
-	Desc = Warunek ein
+	name = Wlacznik
+	Desc = Pykam swiatelkiem
 	Refresh = 15
 	Bool = False
-	Malu1 Cond = {{
-		1.Value = 10
-		2.Ola = 0
+	Czy jasno Cond = {{
+		1.Ola = -1
+		2.Value = 0
 		comp = equal
 		Bool = False
 	}}
 
-	Ef1 Effect = {{
-		Device Name = Ala
-		trueValue = 100
-		falseValue = 200
-		CurrentValue = 200
+	Pyk Effect = {{
+		Device Name = Czujnik swiatla
+		trueValue = 10
+		falseValue = 20
+		CurrentValue = -1
 	}}
 
 }}

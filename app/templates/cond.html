@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Algorithms</h1>
+    {% for k,i in data["dicCon"].items() %}
+    <div>
+        <b>{{k}}</b>
+        <table style="width:100%">
+
+            <tr>
+                <td>Description:</td>
+                <td>{{i["desc"]}}</td>
+            </tr>
+            <tr>    
+                <td>refreshTime:</td><td>{{i["refresh"]}}</td>
+            </tr>
+            <tr>
+                <td>State:</td><td>{{i["bool"]}}</td>
+            </tr>
+        </table>
+        <b>Conditions</b>
+        {% for ks,is in i["small"].items() %}
+        <table style="width:100%">
+
+                <tr>
+                    <td>Name: {{ks}} </td>
+                    <td>State: {{is["bool"]}}</td>
+                </tr>
+                <tr>
+                    <td>{{is["dev1"]}} = {{is["value1"]}} </td>
+                    <td>{{is["comp"]}}</td>
+                    <td>{{is["dev1"]}} = {{is["value1"]}}</td>
+                </tr>
+            </table>
+        {% endfor %}
+        <b>Effects</b>
+        {% for ks,is in i["effect"].items() %}
+        <table style="width:100%">
+
+                <tr>
+                    <td>Device Name: {{ks}} </td>
+                </tr>
+                <tr>
+                    <td>True Value = {{is["trueValue"]}} </td>
+                    <td>False Value = {{is["falseValue"]}} </td>
+                </tr>
+            </table>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    {% endfor %}
+{% endblock %}

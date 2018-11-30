@@ -45,7 +45,7 @@ class Data:
             wynik["dicCon"][i]["effect"]=b
         return wynik
     ###
-    def addDev(self,name,pos,desc,typeName,refreshTime,isRec):
+    def addDev(self,name,desc,typeName,refreshTime,isRec,pos=(-1,-1)):
         self.Wait()
         self.dicDev[name]=devices.Device(name,pos,desc,typeName,refreshTime,isRec)
     ###
@@ -62,12 +62,14 @@ class Data:
         self.dicCon[name]=cond.Cond(name,refresh,desc)
     ###
     def addSmall(self,conName,smallName,dev1,dev2,comp,value1=0,value2=0):
-        self.Wait()
-        self.dicCon[conName].addSmall(self,smallName,dev1,dev2,comp,value1,value2)
+        if conName in self.dicCon:
+            self.Wait()
+            self.dicCon[conName].addSmall(self,smallName,dev1,dev2,comp,value1,value2)
     ###
     def addEffect(self,conName,effectName,deviceName,trueValue,falseValue):
-        self.Wait()
-        self.dicCon[conName].addEffec(self,effectName,deviceName,trueValue,falseValue)
+        if conName in self.dicCon:
+            self.Wait()
+            self.dicCon[conName].addEffec(self,effectName,deviceName,trueValue,falseValue)
     ###
    
     def printDev(self):
@@ -94,11 +96,15 @@ class Data:
         return string
     ###Get Value from device
     def GetValue(self,name):
+        if name not in self.dicCon:
+            return -1
         value=self.dicDev[name].value
         return value
     ###
     ###Send Value to device
     def SendValue(self,name,val):
+        if name not in self.dicCon:
+            return
         if(self.dicDev[name].isRec):
             self.dicDev[name].value=val
             debug.Log('Data: SendValue {} {} '.format(name,val))

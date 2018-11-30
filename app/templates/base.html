@@ -11,6 +11,12 @@
             Microblog:
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('device') }}">Devices</a>
+            <a href="{{ url_for('cond') }}">Algorithms</a>
+            <a href="{{ url_for('addDev') }}">Add device</a>
+            <a href="{{ url_for('addCon') }}">Add Con</a>
+            <a href="{{ url_for('addSmall') }}">Add Small</a>
+            <a href="{{ url_for('addEffect') }}">Add effect</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}

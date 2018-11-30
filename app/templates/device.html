@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <h1>Devices</h1>
+    {% for k,i in data["dicDev"].items() %}
+    <div>
+        <b>{{k}}</b>
+        <table style="width:100%">
 
-    {% for i in data["dicDev"].keys() %}
-    <div><p>{{ i }} says: <b>{{ i }}</b></p></div>
+            <tr>
+                <td>Description: </td>
+                <td>{{i["desc"]}}</td>
+            </tr>
+            <tr>
+                <td>typeName: </td>
+                <td>{{i["typeName"]}}</td>
+            </tr>
+            <tr>
+                <td>refreshTime: </td>
+                <td>{{i["refreshTime"]}}</td>
+            </tr>
+            <tr>
+                <td>isRec: </td>
+                <td>{{i["isRec"]}}</td>
+            </tr>
+        </table>
+    </div>
     {% endfor %}
 {% endblock %}

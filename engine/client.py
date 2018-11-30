@@ -14,7 +14,6 @@ def test(count):
     if count == 1:
         mess["exe"]="addDev"
         mess["name"]="Ala"
-        mess["pos"]=(1,1)
         mess["desc"]="Swiatlo"
         mess["typeName"]="Swiatlo"
         mess["refreshTime"]=15
