@@ -103,7 +103,7 @@ class Data:
     ###
     ###Send Value to device
     def SendValue(self,name,val):
-        if name not in self.dicCon:
+        if name not in self.dicDev.keys():
             return
         if(self.dicDev[name].isRec):
             self.dicDev[name].value=val

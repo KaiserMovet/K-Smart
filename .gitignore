@@ -22,7 +22,8 @@ htmlcov/
 .coverage.*
 *,cover
 
-engine/config.py
-engine/log.txt
-engine/data.txt
-engine/data.txt
+config.py
+log.txt
+data.txt
+data.txt
+*.p

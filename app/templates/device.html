@@ -2,8 +2,9 @@
 
 {% block content %}
     <h1>Devices</h1>
-    {% for k,i in data["dicDev"].items() %}
     <div>
+    {% for k,i in data["dicDev"].items() %}
+    
         <b>{{k}}</b>
         <table style="width:100%">
 
@@ -23,7 +24,12 @@
                 <td>isRec: </td>
                 <td>{{i["isRec"]}}</td>
             </tr>
+            <tr>
+                <td>Value: </td>
+                <td>{{i["value"]}}</td>
+            </tr>
         </table>
-    </div>
+
     {% endfor %}
+    </div>
 {% endblock %}
