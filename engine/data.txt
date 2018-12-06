@@ -1,4 +1,4 @@
-{'interval': 15, 'timeCount': 2355}
+{'interval': 15, 'timeCount': 2520}
 Device = {{
 	name = Ola
 	pos = (-1, -1)
