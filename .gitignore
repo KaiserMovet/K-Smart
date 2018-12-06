@@ -26,3 +26,4 @@ engine/config.py
 engine/log.txt
 engine/data.txt
 engine/data.txt
+*.p
