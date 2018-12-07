@@ -1,6 +1,7 @@
 import debug
 import cond
 import devices
+from cam import Cam
 from time import sleep
 class Data:
 
@@ -14,6 +15,8 @@ class Data:
 
     def __init__(self):
     #   self.dicTyp=dict()
+        self.cam=Cam()
+
         self.dicDev=dict()
         self.dicCon=dict()
         self.isUpdating=False#when Refresh is active
@@ -24,6 +27,7 @@ class Data:
     def toDict(self):
         wynik=dict()
         wynik["dicConst"]=self.dicConst.copy()
+        wynik["camCount"]=self.cam.Count()
         wynik["dicDev"]=dict()
         wynik["dicCon"]=dict()
         for i in self.dicDev.keys():
@@ -71,7 +75,10 @@ class Data:
             self.Wait()
             self.dicCon[conName].addEffec(self,effectName,deviceName,trueValue,falseValue)
     ###
-   
+    def addCam(self,name):
+        self.cam.AddCam(name)
+    def remCam(self,name):
+        self.cam.RemoveCam(name)
     def printDev(self):
         for i in self.dicDev.values():
             print(i.toStr())
