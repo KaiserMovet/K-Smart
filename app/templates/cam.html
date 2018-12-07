@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+#data["camCount"]
+{% block content %}
+    <div>
+        <table style="width:100%">
+            {% for i in range(1,3) %}
+            <tr>
+                    <a href="{{ url_for('cam',ip=i) }}">Kamera{{i}} </a>
+            </tr>
+            {% endfor %}
+        </div>
+        <div>
+            <img src=http://127.0.0.1:{{"808"+ip}}/>
+        </div>
+    
+{% endblock %}

@@ -15,6 +15,7 @@ isExit=False
 def signal_handler(sig, frame):
         print('You pressed Ctrl+C!')
         print('Program will exit soon')
+        time.sleep(1)
         print("Press Ctrl+C again to exit immediately")
         signal.signal(signal.SIGINT, original_sigint)
         global isExit
