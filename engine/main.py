@@ -15,6 +15,7 @@ isExit=False
 def signal_handler(sig, frame):
         print('You pressed Ctrl+C!')
         print('Program will exit soon')
+        time.sleep(1)
         print("Press Ctrl+C again to exit immediately")
         signal.signal(signal.SIGINT, original_sigint)
         global isExit
@@ -59,11 +60,14 @@ def Init():
     server_handler=threading.Thread(target=serv.start,args=(data,2000,))
     server_handler.daemon=True
     server_handler.start()
+    data.cam.PrepareFiles()
+    data.cam.Start()
     return data, refresh_handler,server_handler
 
 def Kill(data,refresh_handler,server_handler):
     #Save data to file
     refresh_handler.join()
+    data.cam.Kill()
     print(222)
     pickle.dump( data, open( "save.p", "wb" ) )
     sys.exit()
