@@ -41,9 +41,9 @@ class addCon(FlaskForm):
         return mess
 
 class addEffect(FlaskForm):
-    conName = StringField('conName', validators=[DataRequired()])
+    conName = SelectField("conName",validators=[DataRequired()])
     effectName = StringField('effectName', validators=[DataRequired()])
-    deviceName = StringField('deviceName', validators=[DataRequired()])
+    deviceName =  SelectField('deviceName', validators=[DataRequired()])
     trueValue = IntegerField('trueValue',validators=[NumberRange(min=-1, max=255)])
     falseValue = IntegerField('falseValue',validators=[NumberRange(min=-1, max=255)])
     submit = SubmitField('Save')

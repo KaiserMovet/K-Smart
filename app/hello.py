@@ -60,6 +60,7 @@ def addSmall():
 @app.route('/addeffect', methods=['GET', 'POST'])
 def addEffect():
     form = Forms.addEffect()
+    form.setChoices(client.refresh())
     if form.validate_on_submit():
         client.sendTo(form.getDict())
         return redirect(url_for('index'))
