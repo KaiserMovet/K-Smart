@@ -32,7 +32,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.isRec() }} {{ form.isRec.label }}</p>
+        <p>{{ form.isRec.label }} {{ form.isRec() }}</p>
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

@@ -5,15 +5,17 @@ import debug
 
 def equal(a,b):
     return (a==b)
+def notEqual(a,b):
+    return (a!=b)
 def less(a,b):
     return (a<b)
-def more(a,b):
+def great(a,b):
     return (a>b)
 def equalLess(a,b):
     return (a<=b)
-def equalMore(a,b):
+def equalGreat(a,b):
     return (a>=b)
-compDict={"equal":equal,"less":less,"more":more,"equalles":equalLess,"equalMore":equalMore}
+compDict={"equal":equal,"notEqual":notEqual,"less":less,"great":great,"equalLess":equalLess,"equalGreat":equalGreat}
 
 class SmallCond(object):
     def __init__(self,data,dev1,value1,dev2,value2,comp):

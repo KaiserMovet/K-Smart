@@ -30,6 +30,7 @@ class Data:
         wynik["camCount"]=self.cam.Count()
         wynik["dicDev"]=dict()
         wynik["dicCon"]=dict()
+        wynik["possibleCond"]=list(cond.compDict.keys())
         for i in self.dicDev.keys():
             wynik["dicDev"][i]=self.dicDev[i].__dict__.copy()
         for i in self.dicCon.keys():

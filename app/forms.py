@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField
 from wtforms.validators import DataRequired, NumberRange
-
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -15,8 +14,8 @@ class addDevice(FlaskForm):
     refreshTime = IntegerField('refreshTime',validators=[NumberRange(min=-1, max=255)])
     isRec=BooleanField('isRec')
     submit = SubmitField('Save')
-
     def getDict(self):
+        
         mess=dict()
         mess["exe"]="addDev"
         mess["name"]=self.name.data
@@ -49,6 +48,12 @@ class addEffect(FlaskForm):
     falseValue = IntegerField('falseValue',validators=[NumberRange(min=-1, max=255)])
     submit = SubmitField('Save')
 
+    def setChoices(self,data):
+        self.conName.choices=[(name,name) for name in data["dicCon"].keys()]
+        self.deviceName.choices=([(name,name) for name in data["dicDev"].keys()])
+        pass
+
+
     def getDict(self):
         mess=dict()
         mess["exe"]="addEffect"
@@ -60,13 +65,21 @@ class addEffect(FlaskForm):
         return mess
 
 class addSmall(FlaskForm):
-    conName = StringField('conName', validators=[DataRequired()])
+    conName = SelectField("conName",validators=[DataRequired()])
     smallName = StringField('smallName', validators=[DataRequired()])
-    dev1 = StringField('dev1', validators=[DataRequired()])
+    dev1 = SelectField('dev1', validators=[DataRequired()])
     value1 = IntegerField('Value1',validators=[NumberRange(min=-1, max=255)])
-    dev2 = StringField('dev2', validators=[DataRequired()])
-    value2 = IntegerField('Value2',validators=[NumberRange(min=-1, max=255)])
+    dev2 = SelectField('dev2', validators=[DataRequired()])
+    value2 = StringField('Value2',validators=[NumberRange(min=-1, max=255)])
+    cond=SelectField('cond', validators=[DataRequired()])
     submit = SubmitField('Save')
+
+    def setChoices(self,data):
+        self.conName.choices=[(name,name) for name in data["dicCon"].keys()]
+        self.dev1.choices=[("Value","Value")]+([(name,name) for name in data["dicDev"].keys()])
+        self.dev2.choices=[("Value","Value")]+([(name,name) for name in data["dicDev"].keys()])
+        self.cond.choices=[(name,name) for name in data["possibleCond"]]
+        pass
 
     def getDict(self):
         mess=dict()
@@ -77,5 +90,5 @@ class addSmall(FlaskForm):
         mess["value1"]=self.value1.data
         mess["dev2"]=self.dev2.data
         mess["value2"]=self.value2.data
-        mess["comp"]="equal" 
+        mess["comp"]=self.cond.data
         return mess

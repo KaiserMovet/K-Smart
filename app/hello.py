@@ -51,6 +51,7 @@ def addCon():
 @app.route('/addsmall', methods=['GET', 'POST'])
 def addSmall():
     form = Forms.addSmall()
+    form.setChoices(client.refresh())
     if form.validate_on_submit():
         client.sendTo(form.getDict())
         return redirect(url_for('index'))
@@ -68,3 +69,8 @@ def addEffect():
 def cam(ip):
     data=client.refresh()
     return render_template('cam.html',title='Cameras', data=data, ip=ip)
+
+@app.route('/data')
+def dataStr():
+    data=client.refresh()
+    return render_template('dataStr.html',title='data',strin=str(data))
