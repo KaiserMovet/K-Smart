@@ -66,8 +66,9 @@ def addEffect():
         return redirect(url_for('index'))
     return render_template('addEffect.html', title='Sign In', form=form)
 
+@app.route('/cam')
 @app.route('/cam/<ip>')
-def cam(ip):
+def cam(ip='0'):
     data=client.refresh()
     return render_template('cam.html',title='Cameras', data=data, ip=ip)
 
