@@ -1,54 +1,124 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Algorithms</h1>
-    {% for k,i in data["dicCon"].items() %}
-    <div>
-        <b>{{k}}</b>
-        <table style="width:100%">
+<h1>Algorithms</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add New Cond
+            <a href="adddev">
+                <button type="button" class="btn btn-default" aria-label="Add">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button></a></h3>
+
+    </div>
+</div>
+{% for k,i in data["dicCon"].items() %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{k}}
+            <a href="adddev/{{k}}">
+                <button type="button" class="btn btn-default" aria-label="Edit">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button></a>
+            <button type="button" class="btn btn-default" aria-label="Delete">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+        </h3>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table" style="max-width:300px;" border="1">
 
             <tr>
                 <td>Description:</td>
                 <td>{{i["desc"]}}</td>
             </tr>
-            <tr>    
-                <td>refreshTime:</td><td>{{i["refresh"]}}</td>
+            <tr>
+                <td>refreshTime:</td>
+                <td>{{i["refresh"]}}</td>
             </tr>
             <tr>
-                <td>State:</td><td>{{i["bool"]}}</td>
+                <td>State:</td>
+                <td>{{i["bool"]}}</td>
             </tr>
         </table>
-        <b>Conditions</b>
-        {% for ks,is in i["small"].items() %}
-        <table style="width:100%">
+
+        <div class="alert alert-success" role="alert">
+            <b>Conditions</b> <a href="adddev">
+                <button type="button" class="btn btn-default" aria-label="Add">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button></a>
+
+        </div>
+
+        <div class="panel body">
+
+            <table class="table" style="max-width:300px;" border="1">
+                {% for ks,is in i["small"].items() %}
+
+
+
 
                 <tr>
-                    <td>Name: {{ks}} </td>
-                    <td>State: {{is["bool"]}}</td>
-                </tr>
-                <tr>
-                    <td>{{is["dev1"]}} = {{is["value1"]}} </td>
+                    <td><b>{{ks}}</b></td>
+                    <td>{{is["dev1"]}}: {{is["value1"]}} </td>
                     <td>{{is["comp"]}}</td>
-                    <td>{{is["dev1"]}} = {{is["value1"]}}</td>
+                    <td>{{is["dev1"]}}: {{is["value1"]}}</td>
+                    <td>{{is["bool"]}}</td>
+                    <td><a href="adddev/{{k}}">
+                            <button type="button" class="btn btn-default" aria-label="Edit">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </button></a></td>
+                    <td> <button type="button" class="btn btn-default" aria-label="Delete">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button></td>
                 </tr>
+
+
+
+                {% endfor %}
             </table>
-        {% endfor %}
-        <b>Effects</b>
-        {% for ks,is in i["effect"].items() %}
-        <table style="width:100%">
+        </div>
+        <div class="alert alert-info" role="alert">
+            <b>Effects</b><a href="adddev">
+                <button type="button" class="btn btn-default" aria-label="Add">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button></a>
+
+        </div>
+        <div class="panel body">
+            <table class="table" style="max-width:300px;" border="1">
+                {% for ks,is in i["effect"].items() %}
+
+
+
 
                 <tr>
-                    <td>Effect Name: {{ks}} </td>
-                    <td>Device Name: {{is["deviceName"]}}</td>
+                    <td><b>{{ks}}</b></td>
+                    <td>Device: {{is["deviceName"]}}</td>
+
+
+                    <td>True: {{is["trueValue"]}} </td>
+                    <td>False: {{is["falseValue"]}} </td>
+                    <td><a href="adddev/{{k}}">
+                            <button type="button" class="btn btn-default" aria-label="Edit">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </button></a></td>
+                    <td> <button type="button" class="btn btn-default" aria-label="Delete">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button></td>
+
                 </tr>
-                <tr>
-                    <td>True Value = {{is["trueValue"]}} </td>
-                    <td>False Value = {{is["falseValue"]}} </td>
-                </tr>
+
+
+
+                {% endfor %}
             </table>
-        {% endfor %}
+        </div>
     </div>
-    <br>
-    <br>
-    {% endfor %}
+</div>
+<br>
+<br>
+{% endfor %}
 {% endblock %}

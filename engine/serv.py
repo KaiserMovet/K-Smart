@@ -5,6 +5,7 @@ import data as DATA
 
 def inter(client_socket,data,mess):
     print("Otrzymano slownik")
+    print(mess)
     if mess["exe"]=="addDev":
         data.addDev(mess["name"],mess["desc"],mess["typeName"],mess["refreshTime"],mess["isRec"])   
     if mess["exe"]=="addCon":

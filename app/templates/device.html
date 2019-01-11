@@ -1,35 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Devices</h1>
-    <div>
-    {% for k,i in data["dicDev"].items() %}
-    
-        <b>{{k}}</b>
-        <table style="width:100%">
+<h1>Devices</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add New Device
+            <a href="adddev">
+                <button type="button" class="btn btn-default" aria-label="Add">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            </button></h3>
 
-            <tr>
-                <td>Description: </td>
-                <td>{{i["desc"]}}</td>
-            </tr>
-            <tr>
-                <td>typeName: </td>
-                <td>{{i["typeName"]}}</td>
-            </tr>
-            <tr>
-                <td>refreshTime: </td>
-                <td>{{i["refreshTime"]}}</td>
-            </tr>
-            <tr>
-                <td>isRec: </td>
-                <td>{{i["isRec"]}}</td>
-            </tr>
-            <tr>
-                <td>Value: </td>
-                <td>{{i["value"]}}</td>
-            </tr>
+    </div>
+</div>
+<div>
+    {% for k,i in data["dicDev"].items() %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{k}}
+                    <a href="adddev/{{k}}">
+                <button type="button" class="btn btn-default" aria-label="Edit">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button></a>
+                <button type="button" class="btn btn-default" aria-label="Delete">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </h3>
+        </div>
+    </div>
+    <div class="panel-body">
+
+        <table class="table" style="max-width:300px;" border="1">
+            <tbody>
+                <tr>
+                    <td scope="row">Description: </th>
+                    <td>{{i["desc"]}}</th>
+
+                </tr>
+
+
+                <tr>
+                    <td scope="row">IP address: </th>
+                    <td>Mark</td>
+
+                </tr>
+                <tr>
+                    <td scope="row">Refresh Time: </th>
+                    <td>Jacob</td>
+
+                </tr>
+                <tr>
+                    <td scope="row">Is Receiver: </th>
+                    <td>Larry</td>
+
+                </tr>
+                <tr>
+                    <td scope="row">Value: </th>
+                    <td>Larry</td>
+
+                </tr>
+            </tbody>
         </table>
+    </div>
+
 
     {% endfor %}
-    </div>
+</div>
 {% endblock %}

@@ -8,7 +8,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class addDevice(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()], default="a")
     desc = StringField('desc', validators=[DataRequired()])
     typeName = StringField('typeName', validators=[DataRequired()])
     refreshTime = IntegerField('refreshTime',validators=[NumberRange(min=-1, max=255)])
@@ -23,8 +23,23 @@ class addDevice(FlaskForm):
         mess["typeName"]=self.typeName.data
         mess["refreshTime"]=self.refreshTime.data
         mess["isRec"]=self.isRec.data
+        print(mess)
+        print("wwwww")
         return mess
 
+    def PreWrite(self,device):
+        self.name.default=device["name"]
+        self.name.render_kw={"readonly":True}
+    
+        self.desc.default=device["desc"]
+        
+        self.typeName.default=device["typeName"]
+        self.refreshTime.default=device["refreshTime"]
+        self.isRec.default=device["isRec"]
+        
+        #self.process()
+        
+    
 
 class addCon(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
@@ -38,6 +53,8 @@ class addCon(FlaskForm):
         mess["name"]=self.name.data
         mess["refreshTime"]=self.refreshTime.data
         mess["desc"]=self.desc.data
+        print(mess)
+        print("wwwww")
         return mess
 
 class addEffect(FlaskForm):
@@ -70,7 +87,7 @@ class addSmall(FlaskForm):
     dev1 = SelectField('dev1', validators=[DataRequired()])
     value1 = IntegerField('Value1',validators=[NumberRange(min=-1, max=255)])
     dev2 = SelectField('dev2', validators=[DataRequired()])
-    value2 = StringField('Value2',validators=[NumberRange(min=-1, max=255)])
+    value2 = IntegerField('Value2',validators=[NumberRange(min=-1, max=255)])
     cond=SelectField('cond', validators=[DataRequired()])
     submit = SubmitField('Save')
 

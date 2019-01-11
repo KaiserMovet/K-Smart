@@ -22,7 +22,7 @@ class Device(object):
         string += "\n\tname = "+self.name
         string += "\n\tpos = "+ str(self.pos)
         string += "\n\tdesc = "+self.desc
-        string += "\n\ttypeName = "+self.typeName
+        string += "\n\ttypeName = "+self.typeName #Dev ip !!!
         string += "\n\tvalue = "+str(self.value)
         string += "\n\ttrueValue = "+ str(self.trueValue)
         string += "\n\trefreshTime = "+str(self.refreshTime)

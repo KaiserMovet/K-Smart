@@ -20,9 +20,27 @@ def mynavbar():
         View('Condition', 'cond'),
         View('Camera', 'cam', ip='0'),
         View('addDevice', 'addDev'),
+        View('addCond', 'addCon'),
+        View('addSmall', 'addSmall'),
+        View('addEffect', 'addEffect'),
+
+    )
+def top_nav():
+    return Navbar(
+        'K-Smart',
+        View('Home', 'index'),
+        View('Login', 'login'),
+        View('Devices', 'device'),
+        View('Condition', 'cond'),
+        View('Camera', 'cam', ip='0'),
+        View('addDevice', 'addDev'),
+        View('addCond', 'addCon'),
+        View('addSmall', 'addSmall'),
+        View('addEffect', 'addEffect'),
 
     )
 
+nav.register_element('top_nav', top_nav)
 # ...
 
 nav.init_app(app)

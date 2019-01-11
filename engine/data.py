@@ -53,6 +53,8 @@ class Data:
     def addDev(self,name,desc,typeName,refreshTime,isRec,pos=(-1,-1)):
         self.Wait()
         self.dicDev[name]=devices.Device(name,pos,desc,typeName,refreshTime,isRec)
+        print("Dodano")
+        print(self.dicDev[name].toStr())
     ###
     def addValue(self,name,pos,desc,value):
         self.Wait()

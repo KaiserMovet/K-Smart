@@ -13,7 +13,7 @@ def index():
 
 @app.route('/device')
 def device():
-
+    
     data=client.refresh()
     return render_template('device.html',title='Home', data=data)
 
@@ -34,10 +34,24 @@ def login():
 
 @app.route('/adddev', methods=['GET', 'POST'])
 def addDev():
+    #device={"name": "", "desc": "", "typeName": "", "refreshTime": "", "isRec": False}
     form = Forms.addDevice()
+    
     if form.validate_on_submit():
         client.sendTo(form.getDict())
-        return redirect(url_for('index'))
+        return redirect(url_for('device'))
+    return render_template('addDevice.html', title='Sign In', form=form)
+
+@app.route('/adddev/<dev>', methods=['GET', 'POST'])
+def addDev2(dev):
+    data=client.refresh()
+    print("aaaaaaaaaaaa")
+    form = Forms.addDevice()
+    #form.PreWrite(data["dicDev"][dev])
+    if form.validate_on_submit():
+        print("KeyWasPressed")
+        client.sendTo(form.getDict())
+        return redirect(url_for('device'))
     return render_template('addDevice.html', title='Sign In', form=form)
 
 @app.route('/addcon', methods=['GET', 'POST'])
@@ -66,7 +80,6 @@ def addEffect():
         return redirect(url_for('index'))
     return render_template('addEffect.html', title='Sign In', form=form)
 
-@app.route('/cam')
 @app.route('/cam/<ip>')
 def cam(ip='0'):
     data=client.refresh()

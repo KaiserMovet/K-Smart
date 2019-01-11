@@ -2,6 +2,8 @@ import socket
 import pickle
 
 def sendTo(dane):
+    print("dddddddd")
+    print(dane)
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(('localhost', 2000))
     a=pickle.dumps( dane )
