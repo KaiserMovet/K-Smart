@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app import app
 import app.forms as Forms
 from app import client
@@ -11,11 +11,17 @@ def index():
 
 
 
-@app.route('/device')
-def device():
-    
+@app.route('/device/<name>', methods=['GET', 'POST'])
+def device(name=0):
+    form = Forms.addDevice()
     data=client.refresh()
-    return render_template('device.html',title='Home', data=data)
+    if request.method=="POST":
+        #if form.validate==True:
+        print("Przyjeto")
+        form.name.data=name
+        client.sendTo(form.getDict())
+        return redirect(url_for('device', name=0))
+    return render_template('device.html',title='Home', data=data, form=form, name=name)
 
 @app.route('/cond')
 def cond():
@@ -39,7 +45,7 @@ def addDev():
     
     if form.validate_on_submit():
         client.sendTo(form.getDict())
-        return redirect(url_for('device'))
+        return redirect(url_for('device', name=0))
     return render_template('addDevice.html', title='Sign In', form=form)
 
 @app.route('/adddev/<dev>', methods=['GET', 'POST'])

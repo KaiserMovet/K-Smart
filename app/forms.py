@@ -8,7 +8,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class addDevice(FlaskForm):
-    name = StringField('name', validators=[DataRequired()], default="a")
+    name = StringField('name', validators=[DataRequired()])
     desc = StringField('desc', validators=[DataRequired()])
     typeName = StringField('typeName', validators=[DataRequired()])
     refreshTime = IntegerField('refreshTime',validators=[NumberRange(min=-1, max=255)])
