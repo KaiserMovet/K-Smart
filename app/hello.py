@@ -23,11 +23,53 @@ def device(name=0):
         return redirect(url_for('device', name=0))
     return render_template('device.html',title='Home', data=data, form=form, name=name)
 
-@app.route('/cond')
-def cond():
+@app.route('/cond/<name>', methods=['GET', 'POST'])
+def cond(name=0):
 
+    form = Forms.addCon()
     data=client.refresh()
-    return render_template('cond.html',title='Home', data=data)
+    if request.method=="POST":
+        #if form.validate==True:
+        print("Przyjeto")
+        form.name.data=name
+        client.sendTo(form.getDict())
+        return redirect(url_for('cond', name=0))
+    
+    return render_template('cond.html',title='Home',typ='cond', data=data, form=form,conName=0, name=name)
+
+@app.route('/small/<conName>/<name>', methods=['GET', 'POST'])
+def small(conName=0, name=0):
+
+    form = Forms.addSmall()
+    form.setChoices(client.refresh())
+    data=client.refresh()
+    if request.method=="POST":
+        #if form.validate==True:
+        print("Przyjeto")
+        form.conName.data=conName
+        form.smallName.data=name
+        
+        client.sendTo(form.getDict())
+        return redirect(url_for('cond', name=0))
+    
+    return render_template('cond.html',title='Home',typ='small', data=data, form=form,conName=conName, name=name)
+
+@app.route('/effect/<conName>/<name>', methods=['GET', 'POST'])
+def effect(conName=0, name=0):
+
+    form = Forms.addEffect()
+    form.setChoices(client.refresh())
+    data=client.refresh()
+    if request.method=="POST":
+        #if form.validate==True:
+        print("Przyjeto")
+        form.conName.data=conName
+        form.effectName.data=name
+        
+        client.sendTo(form.getDict())
+        return redirect(url_for('cond', name=0))
+    
+    return render_template('cond.html',title='Home',typ='effect', data=data, form=form,conName=conName, name=name)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

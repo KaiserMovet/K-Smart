@@ -66,7 +66,11 @@ class Data:
     ###
     def addCond(self,name,refresh,desc):
         self.Wait()
-        self.dicCon[name]=cond.Cond(name,refresh,desc)
+        if name in self.dicCon.keys():
+            self.dicCon[name].refresh=refresh
+            self.dicCon[name].desc=desc
+        else:
+            self.dicCon[name]=cond.Cond(name,refresh,desc)
     ###
     def addSmall(self,conName,smallName,dev1,dev2,comp,value1=0,value2=0):
         if conName in self.dicCon:

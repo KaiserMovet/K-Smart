@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+{{ form.hidden_tag() }}
 <h1>Algorithms</h1>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Add New Cond
-            <a href="adddev">
+            <a href="/addcon">
                 <button type="button" class="btn btn-default" aria-label="Add">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button></a></h3>
@@ -13,16 +14,24 @@
     </div>
 </div>
 {% for k,i in data["dicCon"].items() %}
+{% if name==k and typ=="cond" %}
+<form action="" method="post" novalidate>
+    {% endif %}
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">{{k}}
-            <a href="adddev/{{k}}">
+                {% if k!=name or typ!="cond" %}
+            <a href="{{k}}">
                 <button type="button" class="btn btn-default" aria-label="Edit">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 </button></a>
             <button type="button" class="btn btn-default" aria-label="Delete">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </button>
+            {% else %}
+
+            {{ form.submit() }}
+            {% endif %}
         </h3>
     </div>
 
@@ -32,11 +41,19 @@
 
             <tr>
                 <td>Description:</td>
-                <td>{{i["desc"]}}</td>
+                <td>{% if k!=name or typ!="cond" %}
+                        {{i["desc"]}}
+                        {% else %}
+                        {{form.desc(size=32, value=i["desc"])}}
+                        {% endif %}</td>
             </tr>
             <tr>
                 <td>refreshTime:</td>
-                <td>{{i["refresh"]}}</td>
+                <td>{% if k!=name or typ!="cond" %}
+                    {{i["refresh"]}}
+                    {% else %}
+                    {{form.refreshTime(size=32, value=i["refresh"])}}
+                    {% endif %}</th></td>
             </tr>
             <tr>
                 <td>State:</td>
@@ -45,7 +62,7 @@
         </table>
 
         <div class="alert alert-success" role="alert">
-            <b>Conditions</b> <a href="adddev">
+            <b>Conditions</b> <a href="/addsmall">
                 <button type="button" class="btn btn-default" aria-label="Add">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button></a>
@@ -57,16 +74,17 @@
             <table class="table" style="max-width:300px;" border="1">
                 {% for ks,is in i["small"].items() %}
 
+   
 
-
-
+                {% if name!=ks or conName!=k or typ!="small" %}
                 <tr>
                     <td><b>{{ks}}</b></td>
+                    
                     <td>{{is["dev1"]}}: {{is["value1"]}} </td>
                     <td>{{is["comp"]}}</td>
                     <td>{{is["dev1"]}}: {{is["value1"]}}</td>
                     <td>{{is["bool"]}}</td>
-                    <td><a href="adddev/{{k}}">
+                    <td><a href="/small/{{k}}/{{ks}}">
                             <button type="button" class="btn btn-default" aria-label="Edit">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button></a></td>
@@ -74,14 +92,28 @@
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button></td>
                 </tr>
-
-
-
+                {% else %}
+                <form action="" method="post" novalidate></form>
+                <tr>
+                        <td><b>{{ks}}</b></td>
+                        
+                        <td>{{form.dev1(value=is["dev1"])}}: {{form.value1(value=is["value1"])}} </td>
+                        <td>{{form.cond(value=is["comp"])}}</td>
+                        <td>{{form.dev2(value=is["dev2"])}}: {{form.value2(value=is["value2"])}} </td>
+                        <td>{{is["bool"]}}</td>
+                        <td>{{ form.submit() }}</td>
+                        {% for fieldName, errorMessages in form.errors.items() %}
+                           {% for err in errorMessages %}
+                           <td><b>{{fieldName}} {{err}}</b></td>
+                           {% endfor %}{% endfor %}
+                    </tr>
+                </form> 
+                {% endif %}
                 {% endfor %}
             </table>
         </div>
         <div class="alert alert-info" role="alert">
-            <b>Effects</b><a href="adddev">
+            <b>Effects</b><a href="/addeffect">
                 <button type="button" class="btn btn-default" aria-label="Add">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button></a>
@@ -92,7 +124,7 @@
                 {% for ks,is in i["effect"].items() %}
 
 
-
+                {% if name!=ks or conName!=k or typ!="effect" %}
 
                 <tr>
                     <td><b>{{ks}}</b></td>
@@ -101,7 +133,7 @@
 
                     <td>True: {{is["trueValue"]}} </td>
                     <td>False: {{is["falseValue"]}} </td>
-                    <td><a href="adddev/{{k}}">
+                    <td><a href="/effect/{{k}}/{{ks}}">
                             <button type="button" class="btn btn-default" aria-label="Edit">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button></a></td>
@@ -110,7 +142,21 @@
                         </button></td>
 
                 </tr>
-
+                {% else %}
+                <form action="" method="post" novalidate></form>
+                <tr>
+                        <td><b>{{ks}}</b></td>
+                        <td>Device: {{form.deviceName(value=is["deviceName"])}}</td>
+    
+    
+                        <td>True: {{form.trueValue(value=is["trueValue"])}} </td>
+                        <td>False: {{form.falseValue(value=is["falseValue"])}} </td>
+                        <td>{{ form.submit() }}</td>
+                        
+    
+                    </tr>
+                </form>
+                {% endif %}
 
 
                 {% endfor %}
@@ -120,5 +166,8 @@
 </div>
 <br>
 <br>
+{% if name==k and typ=="cond" %}
+</form>
+    {% endif %}
 {% endfor %}
 {% endblock %}

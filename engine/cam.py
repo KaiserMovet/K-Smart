@@ -16,7 +16,7 @@ class Cam(object):
     def Start(self):
         self.subproc=0
         #TODO
-        #self.subproc=subprocess.Popen("sudo motion",shell=True, preexec_fn=os.setsid)
+        self.subproc=subprocess.Popen("sudo motion",shell=True, preexec_fn=os.setsid)
     def Kill(self):
         if self.subproc==0:
             return

@@ -17,7 +17,7 @@ def mynavbar():
         View('Home', 'index'),
         View('Login', 'login'),
         View('Devices', 'device', name='0'),
-        View('Condition', 'cond'),
+        View('Condition', 'cond', name='0'),
         View('Camera', 'cam', ip='0'),
         View('addDevice', 'addDev'),
         View('addCond', 'addCon'),
