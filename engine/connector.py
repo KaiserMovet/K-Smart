@@ -3,7 +3,7 @@ import subprocess
 
 def GetValue(ip):
         value=0
-        output = subprocess.check_output("wget -qO- "+ip, shell=True).decode("utf-8") 
+        #output = subprocess.check_output("wget -qO- "+ip, shell=True).decode("utf-8") 
         return value
     ###
 

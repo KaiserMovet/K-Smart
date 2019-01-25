@@ -21,7 +21,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{k}}
                 {% if k!=name or typ!="cond" %}
-            <a href="{{k}}">
+            <a href="/cond/{{k}}">
                 <button type="button" class="btn btn-default" aria-label="Edit">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 </button></a>
@@ -102,10 +102,7 @@
                         <td>{{form.dev2(value=is["dev2"])}}: {{form.value2(value=is["value2"])}} </td>
                         <td>{{is["bool"]}}</td>
                         <td>{{ form.submit() }}</td>
-                        {% for fieldName, errorMessages in form.errors.items() %}
-                           {% for err in errorMessages %}
-                           <td><b>{{fieldName}} {{err}}</b></td>
-                           {% endfor %}{% endfor %}
+                        
                     </tr>
                 </form> 
                 {% endif %}

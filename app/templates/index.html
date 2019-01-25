@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi!</h1>
-    
+    <h1>K-Smart</h1>
+    <div class="col-md-6 p-0 bg-indigo h-md-100">
+    <table class="table table-striped">
+        <thead><tr>
+<th>Device</th><th>Value</th>
+</tr></thead>
+{% for k,i in data["dicDev"].items() %}
+<tr>
+    <td>{{k}}</td><td>{{i["value"]}}</td>
+</tr>
+{% endfor %}
+    </table>
+</div>
+<div class="col-md-6 p-0 bg-white h-md-100 loginarea">
+        <img src=http://127.0.0.1:{{"8081"}}/>
+
+</div>
 {% endblock %}
