@@ -1,5 +1,5 @@
 import debug
-
+import connector
 
 
 
@@ -33,11 +33,13 @@ class Device(object):
     ###    
     def GetDevValue(self):
         #TODO
+        self.value=connector.GetValue(self.typeName)
         debug.Log('{}: GetDevValue {} '.format(self.name,self.value))
         pass
     ###
     def SetDevValue(self):
         #TODO
+        connector.SendValue(self.typeName, self.value)
         debug.Log('{}: SetDevValue {} '.format(self.name,self.value))
         pass
     ###
