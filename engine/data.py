@@ -12,6 +12,7 @@ class Data:
     def Const(self):
         self.dicConst["interval"]=15
         self.dicConst["timeCount"]=0
+        self.dicConst["lastUpdate"]=0
 
     def __init__(self):
     #   self.dicTyp=dict()
@@ -53,10 +54,13 @@ class Data:
     def addDev(self,name,desc,typeName,refreshTime,isRec,pos=(-1,-1)):
         self.Wait()
         self.dicDev[name]=devices.Device(name,pos,desc,typeName,refreshTime,isRec)
+        print("Dodano")
+        print(self.dicDev[name].toStr())
     ###
-    def addValue(self,name,pos,desc,value):
+    def addValue(self,name,value):
         self.Wait()
-        self.dicDev[name]=devices.Value(name,pos,desc,value)
+        self.dicDev[name].value=value#=devices.Value(name,pos,desc,value)
+        self.dicDev[name].SetDevValue()
     ###
     def changePos(self,name,pos):
         self.Wait()
@@ -64,7 +68,11 @@ class Data:
     ###
     def addCond(self,name,refresh,desc):
         self.Wait()
-        self.dicCon[name]=cond.Cond(name,refresh,desc)
+        if name in self.dicCon.keys():
+            self.dicCon[name].refresh=refresh
+            self.dicCon[name].desc=desc
+        else:
+            self.dicCon[name]=cond.Cond(name,refresh,desc)
     ###
     def addSmall(self,conName,smallName,dev1,dev2,comp,value1=0,value2=0):
         if conName in self.dicCon:
@@ -104,6 +112,7 @@ class Data:
         return string
     ###Get Value from device
     def GetValue(self,name):
+        debug.Log("GetValue: "+str(name)+" "+str(name not in self.dicCon))
         if name not in self.dicCon:
             return -1
         value=self.dicDev[name].value

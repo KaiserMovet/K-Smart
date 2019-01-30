@@ -1,5 +1,5 @@
 import debug
-
+import connector
 
 
 
@@ -22,7 +22,7 @@ class Device(object):
         string += "\n\tname = "+self.name
         string += "\n\tpos = "+ str(self.pos)
         string += "\n\tdesc = "+self.desc
-        string += "\n\ttypeName = "+self.typeName
+        string += "\n\ttypeName = "+self.typeName #Dev ip !!!
         string += "\n\tvalue = "+str(self.value)
         string += "\n\ttrueValue = "+ str(self.trueValue)
         string += "\n\trefreshTime = "+str(self.refreshTime)
@@ -33,11 +33,13 @@ class Device(object):
     ###    
     def GetDevValue(self):
         #TODO
+        self.value=connector.GetValue(self.typeName)
         debug.Log('{}: GetDevValue {} '.format(self.name,self.value))
         pass
     ###
     def SetDevValue(self):
         #TODO
+        connector.SendValue(self.typeName, self.value)
         debug.Log('{}: SetDevValue {} '.format(self.name,self.value))
         pass
     ###

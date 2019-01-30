@@ -23,9 +23,11 @@ def signal_handler(sig, frame):
         
 def Refresh(data):
     data.timeCount=0
+    debug.Log("Refresh")
     while not isExit:
         if isActive:
             data.isUpdating=True
+            data.dicConst["lastUpdate"]=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
             data.Refresh()
             data.dicConst["timeCount"]+=data.dicConst["interval"]
             data.isUpdating=False

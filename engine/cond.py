@@ -28,10 +28,14 @@ class SmallCond(object):
         self.comp=comp
     
     def Refresh(self):
+        debug.Log(str(self.dev1)+"!=Value "+str(self.dev1!="Value"))
         if self.dev1!="Value":
             self.value1=self.data.GetValue(self.dev1)
+            debug.Log("Value1= "+str(self.value1))
+        debug.Log(str(self.dev2)+"!=Value "+str(self.dev2!="Value"))
         if self.dev2!="Value":
             self.value2=self.data.GetValue(self.dev2)
+            debug.Log("Value2= "+str(self.value2))
         self.bool=compDict[self.comp](self.value1,self.value2)
     
     def toStr(self):

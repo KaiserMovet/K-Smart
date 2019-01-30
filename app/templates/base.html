@@ -1,34 +1,10 @@
-<html>
-    <head>
-        {% if title %}
-        <title>{{ title }} - microblog</title>
-        {% else %}
-        <title>microblog</title>
-        {% endif %}
-    </head>
-    <body>
-        <div>
-            Microblog:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('device') }}">Devices</a>
-            <a href="{{ url_for('cond') }}">Algorithms</a>
-            <a href="{{ url_for('addDev') }}">Add device</a>
-            <a href="{{ url_for('addCon') }}">Add Con</a>
-            <a href="{{ url_for('addSmall') }}">Add Small</a>
-            <a href="{{ url_for('addEffect') }}">Add effect</a>
-            <a href="{{ url_for('cam',ip=0) }}">Cams</a>
-        </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% block title %}K-Smart{% endblock %}
+
+{% block navbar %}
+{{nav.mynavbar.render()}}
+{% endblock %}
+
+        {% block content %}
+          <h1>Hello, Bootstrap</h1>
+        {% endblock %}

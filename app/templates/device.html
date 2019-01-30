@@ -1,35 +1,109 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Devices</h1>
-    <div>
-    {% for k,i in data["dicDev"].items() %}
-    
-        <b>{{k}}</b>
-        <table style="width:100%">
+{{ form.hidden_tag() }}
+<h1>Devices</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add New Device
+            <a href="/adddev">
+                <button type="button" class="btn btn-default" aria-label="Add">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button></a></h3>
 
-            <tr>
-                <td>Description: </td>
-                <td>{{i["desc"]}}</td>
-            </tr>
-            <tr>
-                <td>typeName: </td>
-                <td>{{i["typeName"]}}</td>
-            </tr>
-            <tr>
-                <td>refreshTime: </td>
-                <td>{{i["refreshTime"]}}</td>
-            </tr>
-            <tr>
-                <td>isRec: </td>
-                <td>{{i["isRec"]}}</td>
-            </tr>
-            <tr>
-                <td>Value: </td>
-                <td>{{i["value"]}}</td>
-            </tr>
-        </table>
-
-    {% endfor %}
     </div>
+</div>
+<div>
+    {% for k,i in data["dicDev"].items() %}
+    {% if name!='0' %}
+    <form action="" method="post" novalidate>
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{k}}
+                    {% if (k!=name and typ=="device") %}
+                    <a href="{{k}}">
+                        <button type="button" class="btn btn-default" aria-label="Edit">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button></a>
+                    <button type="button" class="btn btn-default" aria-label="Delete">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                    <a href="/value/{{k}}">
+                        <button type="button" class="btn btn-default" aria-label="Value">
+                            <span class="glyphicon glyphicon-ruble" aria-hidden="true"></span>
+                        </button></a>
+                    {% else %}
+
+                    {{ form.submit() }}
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            <table class="table" style="max-width:300px;" border="1">
+                <tbody>
+                    <tr>
+                        <td scope="row">Description: </th>
+                        <td> {% if (k!=name or typ!="device") %}
+                            {{i["desc"]}}
+                            {% else %}
+                            {{form.desc(size=32, value=i["desc"])}}
+                            {% endif %}
+                            </th>
+                    </tr>
+
+
+                    <tr>
+                        <td scope="row">IP address: </th>
+                        <td> {% if (k!=name or typ!="device") %}
+                            {{i["typeName"]}}
+                            {% else %}
+                            {{form.typeName(size=32, value=i["typeName"])}}
+                            {% endif %}</th>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">Refresh Time: </th>
+                        <td>
+                            {% if (k!=name or typ!="device") %}
+                            {{i["refreshTime"]}}
+                            {% else %}
+                            {{form.refreshTime(size=32, value=i["refreshTime"])}}
+                            {% endif %}
+                            </th>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">Is Receiver: </th>
+                        <td>{% if (k!=name or typ!="device") %}
+                            {{i["isRec"]}}
+                            {% else %}
+                            {{form.isRec(value=i["isRec"])}}
+                            {% endif %}
+                            </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">Value: </th>
+                        <<td>{% if (k!=name or typ!="value") %}
+                            {{i["value"]}}
+                            {% else %}
+                            {{form.value(value=i["value"])}}
+                            {% endif %}
+                            </td>
+                        
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        {% endfor %}
+        {% if name!='0' %}
+    </form>
+    {% endif %}
+</div>
 {% endblock %}
