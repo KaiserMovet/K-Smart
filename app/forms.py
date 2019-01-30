@@ -6,12 +6,23 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+class AddValue(FlaskForm):
+    name=StringField('name', validators=[DataRequired()])
+    value=StringField('value',validators=[DataRequired()])
+    submit = SubmitField('Save')
+    def getDict(self):
+        mess=dict()
+        mess["exe"]="addValue"
+        mess["name"]=self.name.data
+        mess["value"]=self.value.data
+        return mess
+
 
 class addDevice(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     desc = StringField('desc', validators=[DataRequired()])
-    typeName = StringField('typeName', validators=[DataRequired()])
-    refreshTime = IntegerField('refreshTime',validators=[NumberRange(min=-1, max=255)])
+    typeName = StringField('IP Address', validators=[DataRequired()])
+    refreshTime = IntegerField('refreshTime',validators=[DataRequired()])
     isRec=BooleanField('isRec')
     submit = SubmitField('Save')
     def getDict(self):
@@ -23,8 +34,7 @@ class addDevice(FlaskForm):
         mess["typeName"]=self.typeName.data
         mess["refreshTime"]=self.refreshTime.data
         mess["isRec"]=self.isRec.data
-        print(mess)
-        print("wwwww")
+
         return mess
 
     def PreWrite(self,device):
@@ -44,7 +54,7 @@ class addDevice(FlaskForm):
 class addCon(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     desc = StringField('desc', validators=[DataRequired()])
-    refreshTime = IntegerField('refreshTime',validators=[NumberRange(min=-1, max=255)])
+    refreshTime = IntegerField('refreshTime',validators=[DataRequired()])
     submit = SubmitField('Save')
 
     def getDict(self):
@@ -61,8 +71,8 @@ class addEffect(FlaskForm):
     conName = SelectField("conName",validators=[DataRequired()])
     effectName = StringField('effectName', validators=[DataRequired()])
     deviceName =  SelectField('deviceName', validators=[DataRequired()])
-    trueValue = IntegerField('trueValue',validators=[NumberRange(min=-1, max=255)])
-    falseValue = IntegerField('falseValue',validators=[NumberRange(min=-1, max=255)])
+    trueValue = StringField('trueValue',validators=[DataRequired()])
+    falseValue = StringField('falseValue',validators=[DataRequired()])
     submit = SubmitField('Save')
 
     def setChoices(self,data):
@@ -85,9 +95,9 @@ class addSmall(FlaskForm):
     conName = SelectField("conName",validators=[DataRequired()])
     smallName = StringField('smallName', validators=[DataRequired()])
     dev1 = SelectField('dev1', validators=[DataRequired()])
-    value1 = IntegerField('Value1',validators=[NumberRange(min=-1, max=255)])
+    value1 = StringField('Value1',validators=[DataRequired()])
     dev2 = SelectField('dev2', validators=[DataRequired()])
-    value2 = IntegerField('Value2',validators=[NumberRange(min=-1, max=255)])
+    value2 =StringField('Value2',validators=[DataRequired()])
     cond=SelectField('cond', validators=[DataRequired()])
     submit = SubmitField('Save')
 

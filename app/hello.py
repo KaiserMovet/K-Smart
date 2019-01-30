@@ -21,7 +21,20 @@ def device(name=0):
         form.name.data=name
         client.sendTo(form.getDict())
         return redirect(url_for('device', name=0))
-    return render_template('device.html',title='Home', data=data, form=form, name=name)
+    return render_template('device.html',title='Home', data=data, form=form, name=name, typ='device')
+
+@app.route('/value/<name>', methods=['GET', 'POST'])
+def value(name=0):
+    form = Forms.AddValue()
+    data=client.refresh()
+
+    if request.method=="POST":
+        #if form.validate==True:
+        print("Przyjeto")
+        form.name.data=name
+        client.sendTo(form.getDict())
+        return redirect(url_for('device', name=0))
+    return render_template('device.html',title='Home', data=data, form=form, name=name,typ='value')
 
 @app.route('/cond/<name>', methods=['GET', 'POST'])
 def cond(name=0):
@@ -99,7 +112,7 @@ def addDev2(dev):
     if form.validate_on_submit():
         print("KeyWasPressed")
         client.sendTo(form.getDict())
-        return redirect(url_for('device'))
+        return redirect(url_for('device', name=0))
     return render_template('addDevice.html', title='Sign In', form=form)
 
 @app.route('/addcon', methods=['GET', 'POST'])
@@ -107,7 +120,7 @@ def addCon():
     form = Forms.addCon()
     if form.validate_on_submit():
         client.sendTo(form.getDict())
-        return redirect(url_for('index'))
+        return redirect(url_for('cond', name=0))
     return render_template('addCon.html', title='Sign In', form=form)
 
 @app.route('/addsmall', methods=['GET', 'POST'])
@@ -116,7 +129,7 @@ def addSmall():
     form.setChoices(client.refresh())
     if form.validate_on_submit():
         client.sendTo(form.getDict())
-        return redirect(url_for('index'))
+        return redirect(url_for('cond', name=0))
     return render_template('addSmall.html', title='Sign In', form=form)
 
 @app.route('/addeffect', methods=['GET', 'POST'])
@@ -125,7 +138,7 @@ def addEffect():
     form.setChoices(client.refresh())
     if form.validate_on_submit():
         client.sendTo(form.getDict())
-        return redirect(url_for('index'))
+        return redirect(url_for('cond'))
     return render_template('addEffect.html', title='Sign In', form=form)
 
 @app.route('/cam/<ip>')

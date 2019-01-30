@@ -8,8 +8,8 @@
         <h3 class="panel-title">Add New Device
             <a href="/adddev">
                 <button type="button" class="btn btn-default" aria-label="Add">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
-            </button></h3>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button></a></h3>
 
     </div>
 </div>
@@ -21,7 +21,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">{{k}}
-                    {% if k!=name %}
+                    {% if (k!=name and typ=="device") %}
                     <a href="{{k}}">
                         <button type="button" class="btn btn-default" aria-label="Edit">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -29,6 +29,10 @@
                     <button type="button" class="btn btn-default" aria-label="Delete">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
+                    <a href="/value/{{k}}">
+                        <button type="button" class="btn btn-default" aria-label="Value">
+                            <span class="glyphicon glyphicon-ruble" aria-hidden="true"></span>
+                        </button></a>
                     {% else %}
 
                     {{ form.submit() }}
@@ -42,7 +46,7 @@
                 <tbody>
                     <tr>
                         <td scope="row">Description: </th>
-                        <td> {% if k!=name %}
+                        <td> {% if (k!=name or typ!="device") %}
                             {{i["desc"]}}
                             {% else %}
                             {{form.desc(size=32, value=i["desc"])}}
@@ -53,7 +57,7 @@
 
                     <tr>
                         <td scope="row">IP address: </th>
-                        <td> {% if k!=name %}
+                        <td> {% if (k!=name or typ!="device") %}
                             {{i["typeName"]}}
                             {% else %}
                             {{form.typeName(size=32, value=i["typeName"])}}
@@ -63,7 +67,7 @@
                     <tr>
                         <td scope="row">Refresh Time: </th>
                         <td>
-                            {% if k!=name %}
+                            {% if (k!=name or typ!="device") %}
                             {{i["refreshTime"]}}
                             {% else %}
                             {{form.refreshTime(size=32, value=i["refreshTime"])}}
@@ -73,17 +77,23 @@
                     </tr>
                     <tr>
                         <td scope="row">Is Receiver: </th>
-                        <td>{% if k!=name %}
+                        <td>{% if (k!=name or typ!="device") %}
                             {{i["isRec"]}}
                             {% else %}
                             {{form.isRec(value=i["isRec"])}}
                             {% endif %}
-                            </th>
+                            </td>
 
                     </tr>
                     <tr>
                         <td scope="row">Value: </th>
-                        <td>{{i["value"]}}</td>
+                        <<td>{% if (k!=name or typ!="value") %}
+                            {{i["value"]}}
+                            {% else %}
+                            {{form.value(value=i["value"])}}
+                            {% endif %}
+                            </td>
+                        
 
                     </tr>
                 </tbody>
