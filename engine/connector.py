@@ -4,11 +4,14 @@ import subprocess
 def GetValue(ip):
         value=0
         #output = subprocess.check_output("wget -qO- "+ip, shell=True).decode("utf-8") 
-        return value
+        output = subprocess.check_output("cat czujnik", shell=True).decode("utf-8")
+        print("Otrzymano wartosc: "+str(output))
+        return output
     ###
 
 def SendValue(ip, val):
-        
+        subprocess.check_output("echo "+str(val)+" > czujnik", shell=True).decode("utf-8")
+        print("Wyslano wartosc: "+str(val))
         return
 
 

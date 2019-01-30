@@ -17,7 +17,7 @@ def inter(client_socket,data,mess):
     if mess["exe"]=="ChangePos":
         data.ChangePos(mess["name"],mess["pos"])
     if mess["exe"]=="addValue":
-        data.addValue(mess["name"],mess["pos"],mess["desc"],mess["value"])   
+        data.addValue(mess["name"],mess["value"])   
     
 
 ###

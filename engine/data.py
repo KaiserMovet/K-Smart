@@ -12,6 +12,7 @@ class Data:
     def Const(self):
         self.dicConst["interval"]=15
         self.dicConst["timeCount"]=0
+        self.dicConst["lastUpdate"]=0
 
     def __init__(self):
     #   self.dicTyp=dict()
@@ -56,9 +57,10 @@ class Data:
         print("Dodano")
         print(self.dicDev[name].toStr())
     ###
-    def addValue(self,name,pos,desc,value):
+    def addValue(self,name,value):
         self.Wait()
-        self.dicDev[name]=devices.Value(name,pos,desc,value)
+        self.dicDev[name].value=value#=devices.Value(name,pos,desc,value)
+        self.dicDev[name].SetDevValue()
     ###
     def changePos(self,name,pos):
         self.Wait()
@@ -110,6 +112,7 @@ class Data:
         return string
     ###Get Value from device
     def GetValue(self,name):
+        debug.Log("GetValue: "+str(name)+" "+str(name not in self.dicCon))
         if name not in self.dicCon:
             return -1
         value=self.dicDev[name].value
