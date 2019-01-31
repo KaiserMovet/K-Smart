@@ -138,7 +138,7 @@ def addEffect():
     form.setChoices(client.refresh())
     if form.validate_on_submit():
         client.sendTo(form.getDict())
-        return redirect(url_for('cond'))
+        return redirect(url_for('cond', name=0))
     return render_template('addEffect.html', title='Sign In', form=form)
 
 @app.route('/cam/<ip>')
