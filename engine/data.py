@@ -112,10 +112,12 @@ class Data:
         return string
     ###Get Value from device
     def GetValue(self,name):
-        debug.Log("GetValue: "+str(name)+" "+str(name not in self.dicCon))
-        if name not in self.dicCon:
+        debug.Log("GetValue: "+str(name)+" "+str(name not in self.dicDev))
+        if name not in self.dicDev.keys():
+            debug.Log("NIE DZIALA: ")
             return -1
         value=self.dicDev[name].value
+        debug.Log("PATRZ TUTAJ: "+str(value))
         return value
     ###
     ###Send Value to device
