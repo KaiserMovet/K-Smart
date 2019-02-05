@@ -15,7 +15,7 @@ def mynavbar():
     return Navbar(
         'K-Smart',
         View('Home', 'index'),
-        View('Login', 'login'),
+        #View('Login', 'login'),
         View('Devices', 'device', name='0'),
         View('Condition', 'cond', name='0'),
         View('Camera', 'cam', ip='0'),
