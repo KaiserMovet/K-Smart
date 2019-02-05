@@ -32,7 +32,7 @@ class addDevice(FlaskForm):
         mess["name"]=self.name.data
         mess["desc"]=self.desc.data
         mess["typeName"]=self.typeName.data
-        mess["refreshTime"]=self.refreshTime.data
+        mess["refreshTime"]=15
         mess["isRec"]=self.isRec.data
 
         return mess
