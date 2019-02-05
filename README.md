@@ -42,3 +42,7 @@ W celu uruchomienia modułu app, będąc w folderze app/ należy użyć komend:
 - Dodajemy effect, wybieramy nazwę reguły, wybraną nazwę efektu, obsługiwane urządzenie (w naszym wypadku żarówka), oraz wartość, jaką żarówka ma przyjmować, gdy warunek jest prawidziwy (w naszym wypadku 1) oraz gdy warunek jest fałszywy(0). Jeśli chcemy, żeby żadna wartość nie była wysyłana, wpisujemy "-1". Oba pola mogą przyjmować jakiekolwiek wartości, w tym stringi
 
 Ponadto wartości urządzeń można zmieniać ręcznie, w zakłądce Devices. Nalezy jednak mieć na uwadzę, że jeżeli dane urządzenie jest zmieniane przez metodę, mogą one zostać nadpisane.
+
+# Znane problemy
+- Niedziałające usuwanie czujników oraz warunków
+- Brak możliwości zapisu edycji efektów oraz warunków
