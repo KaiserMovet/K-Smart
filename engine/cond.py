@@ -58,11 +58,11 @@ class Effect(object):
     ###
     def Refresh(self,con):
         if con:
-            if self.trueValue!=-1:
+            if self.trueValue!="-1":
                 self.data.SendValue(self.deviceName,self.trueValue)
             ###
         else:
-            if self.falseValue!=-1:
+            if self.falseValue!="-1":
                 self.data.SendValue(self.deviceName,self.falseValue)
             ###
         ###
